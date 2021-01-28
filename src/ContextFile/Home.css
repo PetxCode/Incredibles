@@ -1,0 +1,12 @@
+.video {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  width: 720px;
+  height: 360px;
+  border: 1px solid lightgray;
+}
+
+.video {
+  height: 400px;
+  width: 720px;
+}
