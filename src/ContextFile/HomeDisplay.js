@@ -5,49 +5,45 @@ import "./Home.css";
 const HomeDisplay = () => {
   const [playing, setPlaying] = useState(false);
 
-  const HEIGHT = 500;
-  const WIDTH = 760;
-
-  const startVideo = () => {
-    setPlaying(true);
+  const starting = () => {
+    setPlaying(!playing);
     navigator.getUserMedia(
       {
         video: true,
       },
       (stream) => {
-        let video = document.getElementsByClassName("app__videoFeed")[0];
+        let video = document.getElementsByClassName("play")[0];
         if (video) {
           video.srcObject = stream;
         }
       },
-      (err) => console.error(err)
+      (err) => console.log(err)
     );
   };
 
-  const stopVideo = () => {
-    setPlaying(false);
-    let video = document.getElementsByClassName("app__videoFeed")[0];
-    video.srcObject.getTracks()[0].stop();
+  const endStarting = () => {
+    setPlaying(!playing);
+    let video = document.getElementsByClassName("video")[0];
+    video.srcOject.getTracks()[0].stop();
   };
 
   return (
-    <div className="app">
-      <div className="app__container">
-        <video
-          height="360px"
-          width="720px"
-          muted
-          autoPlay
-          className="app__videoFeed"
-        ></video>
-      </div>
-      <div className="app__input">
+    <div>
+      <center>This is the First Page</center>
+
+      <center>
+        <div className="video">
+          <video height="100%" width="100%" muted autoPlay className="play" />
+        </div>
+      </center>
+
+      <center>
         {playing ? (
-          <button onClick={stopVideo}>Stop</button>
+          <Button onClick={starting}>Start</Button>
         ) : (
-          <button onClick={startVideo}>Start</button>
+          <Button onClick={endStarting}>Stop</Button>
         )}
-      </div>
+      </center>
     </div>
   );
 };

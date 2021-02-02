@@ -7,5 +7,4 @@ export const GlobalStyle = createGlobalStyle`
   padding: 0;
   font-family: Poppins
 }
-
 `;
