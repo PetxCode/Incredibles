@@ -34,6 +34,26 @@ const HeaderBar = () => {
           </Link>
         </div>
         <div>
+          <Link
+            to="/virt"
+            style={{
+              color: "white",
+            }}
+          >
+            Virtualization Class
+          </Link>
+        </div>
+        <div>
+          <Link
+            to="/movie"
+            style={{
+              color: "white",
+            }}
+          >
+            Movie
+          </Link>
+        </div>
+        <div>
           <Button>
             <Link to="/add">Add User</Link>
           </Button>

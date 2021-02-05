@@ -12,6 +12,8 @@ import HeaderBar from "./NewClass/HeaderBar";
 import AddUser from "./NewClass/AddUser";
 import EditUser from "./NewClass/EditUser";
 import { GlobalProvide } from "./NewClass/ContextAPI/Global";
+import MovieScreen from "./Movie/MovieScreen";
+import Virtualization from "./NewClass/Virtualization";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <HeaderBar />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/movie" component={MovieScreen} />
+            <Route exact path="/virt" component={Virtualization} />
             <Route exact path="/use" component={UseCase} />
             <Route exact path="/add" component={AddUser} />
             <Route exact path="/edit/:id" component={EditUser} />
