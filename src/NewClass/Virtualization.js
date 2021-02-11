@@ -1,79 +1,73 @@
 import React, { useRef, useState, useEffect } from "react";
-import { select, line, curveCardinal } from "d3";
-import { Button } from "antd";
+import {
+  select,
+  line,
+  curveCardinal,
+  scaleLinear,
+  axisBottom,
+  axisRight,
+} from "d3";
+import LineGraph from "./LineGraph";
+import DoughnutGraph from "./Doughnut";
 
 const Virtualization = () => {
   const svgRef = useRef();
-  console.log(svgRef);
-
-  const [data, setData] = useState([0, 60, 25, 55, 75]);
+  const [data, setData] = useState([0, 12, 57, 20, 45, 68, 55, 23, 47, 31]);
 
   useEffect(() => {
     const svg = select(svgRef.current);
-    // console.log(svg);
-    // const x = svg.selectAll("circle").data(data);
-    // console.log(x);
-    // x.join("circle")
-    //   .attr("r", (value) => value)
-    //   .attr("cx", (value) => value)
-    //   .attr("cy", (value) => value)
-    //   .attr("stroke", "black")
-    //   .attr("fill", "none");
+
+    const xScale = scaleLinear()
+      .domain([0, data.length - 1])
+      .range([0, 300]);
+    const yScale = scaleLinear().domain([0, 70]).range([150, 0]);
+
+    const xAxis = axisBottom(xScale).ticks(data.length);
+    const yAxis = axisRight(yScale);
+
+    svg.select(".x-axis").style("transform", "translateY(150px)").call(xAxis);
+    svg.select(".y-axis").style("transform", "translateX(300px)").call(yAxis);
 
     const newLine = line()
-      .x((value, index) => index * 20)
-      .y((value) => 200 - value)
+      .x((value, index) => xScale(index))
+      .y(yScale)
       .curve(curveCardinal);
 
     svg
-      .selectAll("path")
+      .selectAll(".line")
       .data([data])
       .join("path")
+      .attr("class", "line")
       .attr("d", (value) => newLine(value))
       .attr("stroke", "red")
       .attr("fill", "none");
   }, [data]);
   return (
     <div>
-      <center>Virtualization</center>
       <br />
       <br />
-
+      <center>The Virtual</center>
+      <br />
       <center>
         <svg
-          height="200"
           ref={svgRef}
           style={{
-            backgroundColor: "lightgray",
+            backgroundColor: "lightblue",
+            overflow: "visible",
           }}
-        ></svg>
+        >
+          <g className="x-axis" />
+          <g className="y-axis" />
+        </svg>
+      </center>
+      <br />
+      <br />
+      <center>
+        <LineGraph />
         <br />
         <br />
-
-        <Button
-          onClick={() => {
-            setData(data.map((value) => value * 2));
-          }}
-        >
-          {" "}
-          Change{" "}
-        </Button>
-        <Button
-          onClick={() => {
-            setData(data.map((value) => value / 2));
-          }}
-        >
-          {" "}
-          Change Back{" "}
-        </Button>
-        <Button
-          onClick={() => {
-            setData(data.filter((value) => value < 60));
-          }}
-        >
-          {" "}
-          Filter{" "}
-        </Button>
+        <br />
+        <DoughnutGraph />
       </center>
     </div>
   );
